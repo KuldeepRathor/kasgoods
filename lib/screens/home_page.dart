@@ -1,6 +1,6 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:kasgoods/screens/product_model.dart';
+import 'package:kasgoods/constants.dart';
+import 'package:kasgoods/screens/product_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Our Products",
         style: TextStyle(
           color: Colors.white,
@@ -59,9 +59,9 @@ class _HomePageState extends State<HomePage> {
       //   ),
       // ),
       actions: [
-        Card(
+        const Card(
           elevation: 5,
-          child: Padding(
+          child: const Padding(
             padding: EdgeInsets.all(8.0),
             child: Icon(Icons.search),
           ),
@@ -76,12 +76,12 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TabBar(
+          const TabBar(
             unselectedLabelColor: Colors.black54,
             labelColor: Colors.white,
-            labelStyle: TextStyle(fontWeight: FontWeight.w600),
+            labelStyle: const TextStyle(fontWeight: FontWeight.w600),
             isScrollable: true,
-            indicator: UnderlineTabIndicator(
+            indicator: const UnderlineTabIndicator(
                 borderSide: BorderSide(
                   color: Colors.greenAccent,
                   width: 2,
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
               Tab(
                 text: "Sofas",
               ),
-              Tab(
+              const Tab(
                 text: "Tables",
               ),
             ],
@@ -106,8 +106,8 @@ class _HomePageState extends State<HomePage> {
             height: 250,
             child: TabBarView(
               children: [
-                // _buildChairProducts(),
-                Container(),
+                _buildChairProducts(),
+                //Container(),
                 Container(),
                 Container(),
                 Container(),
@@ -123,18 +123,58 @@ class _HomePageState extends State<HomePage> {
     return Container();
   }
 
-// _buildChairProducts() {
-//   return _ChairWidget(productModel: null,);
-// }
+  _buildChairProducts() {
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return _ChairWidget(
+            productModel: Constants.chairs[index],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(
+            width: 10,
+          );
+        },
+        itemCount: Constants.chairs.length);
+  }
 }
 
-// class _ChairWidget extends StatelessWidget {
-//   final ProductModel productModel;
-//
-//   const _ChairWidget({Key? key, required this.productModel}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
+class _ChairWidget extends StatelessWidget {
+  final ProductModel productModel;
+
+  const _ChairWidget({Key? key, required this.productModel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        height: constraints.maxHeight,
+        width: 150,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              Text(
+                productModel.name,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                '\$${productModel.price}',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+}
