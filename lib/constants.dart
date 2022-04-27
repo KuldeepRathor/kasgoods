@@ -11,14 +11,6 @@ class Constants {
       'Chair',
     ),
     ProductModel(
-      2,
-      'assets/images/2.png',
-      2400,
-      'chair for sitting',
-      '.....',
-      'Chair',
-    ),
-    ProductModel(
       1,
       'assets/images/1.png',
       2400,
@@ -105,4 +97,5 @@ class Constants {
   ];
 
   static _bestofferWidget() {}
+
 }
