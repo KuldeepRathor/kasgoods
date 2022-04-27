@@ -34,9 +34,42 @@ class _HomePageState extends State<HomePage> {
               _buildAppBar(),
               _buildProducts(),
               _buildBestOffers(),
+
             ],
           ),
         ),
+      ),
+      drawer:Drawer(
+        child: ListView(
+        //padding: EdgeInsets.zero,
+        children: [
+
+         ListTile(
+            title: const Text('Categories'),
+            onTap: () {
+
+            },
+          ),
+          ListTile(
+            title: const Text('Cart'),
+            onTap: () {
+              //goto cart screen
+            },
+          ),
+          ListTile(
+            title: const Text('Profile'),
+            onTap: () {
+
+            },
+          ),
+          ListTile(
+            title: const Text('Cart'),
+            onTap: () {
+              //goto cart screen
+            },
+          ),
+        ],
+      ),
       ),
     );
   }
