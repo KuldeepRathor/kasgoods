@@ -18,6 +18,14 @@ class Constants {
       '.....',
       'Chair',
     ),
+    ProductModel(
+      1,
+      'assets/images/1.png',
+      2400,
+      'chair for sitting',
+      '.....',
+      'Chair',
+    ),
   ];
 
   static List<ProductModel> bestoffers = [
@@ -95,7 +103,4 @@ class Constants {
       'Chair',
     ),
   ];
-
-  static _bestofferWidget() {}
-
 }

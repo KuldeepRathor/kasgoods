@@ -12,73 +12,71 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              // Colors.black,
-              Colors.white,
-              Colors.lightBlue.shade900
-            ],
-            stops: [0.1, 1],
+    return SafeArea(
+      child: Scaffold(
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          // decoration: BoxDecoration(
+          // gradient: LinearGradient(
+          //   begin: Alignment.bottomLeft,
+          //   end: Alignment.topRight,
+          //   colors: [
+          //     // Colors.black,
+          //     Colors.white,
+          //     Colors.lightBlue.shade900
+          //   ],
+          //   stops: [0.1, 1],
+          // ),
+          // ),
+
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                buildAppBar(),
+                buildSearchBar(),
+                buildProducts(),
+                buildBestOffers(),
+              ],
+            ),
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
+        drawer: Drawer(
+          child: ListView(
+            //padding: EdgeInsets.zero,
             children: [
-              _buildAppBar(),
-              _buildProducts(),
-              _buildBestOffers(),
-
+              ListTile(
+                title: const Text('Categories'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text('Cart'),
+                onTap: () {
+                  //goto cart screen
+                },
+              ),
+              ListTile(
+                title: const Text('Profile'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text('Cart'),
+                onTap: () {
+                  //goto cart screen
+                },
+              ),
             ],
           ),
         ),
-      ),
-      drawer:Drawer(
-        child: ListView(
-        //padding: EdgeInsets.zero,
-        children: [
-
-         ListTile(
-            title: const Text('Categories'),
-            onTap: () {
-
-            },
-          ),
-          ListTile(
-            title: const Text('Cart'),
-            onTap: () {
-              //goto cart screen
-            },
-          ),
-          ListTile(
-            title: const Text('Profile'),
-            onTap: () {
-
-            },
-          ),
-          ListTile(
-            title: const Text('Cart'),
-            onTap: () {
-              //goto cart screen
-            },
-          ),
-        ],
-      ),
       ),
     );
   }
 
-  _buildAppBar() {
+  buildAppBar() {
     return AppBar(
       backgroundColor: Colors.transparent,
       title: const Text(
-        "Our Products",
+        "KAS Goods",
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w600,
@@ -91,19 +89,26 @@ class _HomePageState extends State<HomePage> {
       //     color: Color(0xff2A2D31),fontWeight: FontWeight.w600,
       //   ),
       // ),
-      actions: [
-        const Card(
+      actions: const [
+        Card(
           elevation: 5,
-          child: const Padding(
+          shadowColor: Colors.white,
+          child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.search),
+            child: Icon(Icons.shopping_cart),
           ),
         ),
       ],
     );
   }
 
-  _buildProducts() {
+  buildSearchBar() {
+
+  }
+}
+
+
+buildProducts() {
     return DefaultTabController(
       length: 4,
       child: Column(
@@ -112,9 +117,9 @@ class _HomePageState extends State<HomePage> {
           const TabBar(
             unselectedLabelColor: Colors.black54,
             labelColor: Colors.white,
-            labelStyle: const TextStyle(fontWeight: FontWeight.w600),
+            labelStyle: TextStyle(fontWeight: FontWeight.w600),
             isScrollable: true,
-            indicator: const UnderlineTabIndicator(
+            indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(
                   color: Colors.greenAccent,
                   width: 2,
@@ -130,16 +135,16 @@ class _HomePageState extends State<HomePage> {
               Tab(
                 text: "Sofas",
               ),
-              const Tab(
+              Tab(
                 text: "Tables",
               ),
             ],
           ),
-          Container(
+          SizedBox(
             height: 250,
             child: TabBarView(
               children: [
-                _buildChairProducts(),
+                buildChairProducts(),
                 //Container(),
                 Container(),
                 Container(),
@@ -152,26 +157,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildBestOffers() {
+  buildBestOffers() {
     return Container();
   }
 
-  _buildChairProducts() {
+  buildChairProducts() {
     return ListView.separated(
-      scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return _ChairWidget(
             productModel: Constants.chairs[index],
           );
         },
         separatorBuilder: (context, index) {
-          return SizedBox(
+          return const SizedBox(
             width: 10,
           );
         },
         itemCount: Constants.chairs.length);
   }
-}
+
 
 class _ChairWidget extends StatelessWidget {
   final ProductModel productModel;
@@ -181,7 +186,7 @@ class _ChairWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return Container(
+      return SizedBox(
         height: constraints.maxHeight,
         width: 150,
         child: Card(
@@ -192,14 +197,14 @@ class _ChairWidget extends StatelessWidget {
             children: [
               Text(
                 productModel.name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Text(
                 '\$${productModel.price}',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w400,
                 ),
